@@ -10,7 +10,7 @@ class CstBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: fun,
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(Colors.white),
         backgroundColor: MaterialStateProperty.all(Colors.purple),

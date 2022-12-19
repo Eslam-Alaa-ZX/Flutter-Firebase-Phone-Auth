@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/pages/register_page.dart';
 import 'package:flutter_firebase_phone_auth/widgets/cst_btn.dart';
 
 class WelcomPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class WelcomPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/1.jpg",
+                  "assets/1.png",
                   height: 300,
                 ),
                 const SizedBox(
@@ -49,7 +50,13 @@ class WelcomPage extends StatelessWidget {
                   height: 50,
                   child: CstBtn(
                     txt: "Get started",
-                    fun: () {},
+                    fun: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()),
+                      );
+                    },
                   ),
                 )
               ],

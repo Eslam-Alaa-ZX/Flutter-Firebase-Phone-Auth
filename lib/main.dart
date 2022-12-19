@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_phone_auth/pages/welcom_page.dart';
+import 'package:flutter_firebase_phone_auth/provider/data.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: "FlutterPhoneAuth",
-      debugShowCheckedModeBanner: false,
-      home: WelcomPage(),
+    return ChangeNotifierProvider(
+      create: (context) => Data(),
+      child: const MaterialApp(
+        title: "FlutterPhoneAuth",
+        debugShowCheckedModeBanner: false,
+        home: WelcomPage(),
+      ),
     );
   }
 }
