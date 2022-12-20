@@ -124,13 +124,7 @@ class RegisterPage extends StatelessWidget {
                     height: 50,
                     child: CstBtn(
                       txt: "Login",
-                      fun: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPage()),
-                        );
-                      },
+                      fun: () => checkPhoneNumber(context, data, auth),
                     ),
                   ),
                 ],
@@ -141,8 +135,9 @@ class RegisterPage extends StatelessWidget {
       ),
     );
   }
-  void checkPhoneNumber(Data da,AuthProvider ap){
+  void checkPhoneNumber(BuildContext context,Data da,AuthProvider ap){
     String phoneNumber=da.phoneController.text.replaceAll(RegExp(r'[^0-9]'), '');
+    ap.signInWithPhone(context, "+${da.country.phoneCode}$phoneNumber");
 
   }
 }
