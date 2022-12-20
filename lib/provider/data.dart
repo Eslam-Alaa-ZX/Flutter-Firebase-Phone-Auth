@@ -21,7 +21,7 @@ class Data with ChangeNotifier {
   }
 
   void onTextChange(String txt) {
-    phoneController.text = txt;
+    phoneController.text = txt;//txt.replaceAll(RegExp(r'[^0-9]'), '')
     phoneController.selection = TextSelection.fromPosition(
       TextPosition(offset: phoneController.text.length),
     );

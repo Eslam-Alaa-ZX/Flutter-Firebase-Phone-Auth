@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_phone_auth/provider/data.dart';
 import 'package:provider/provider.dart';
 
+
+import '../provider/authProvider.dart';
 import '../widgets/cst_btn.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -11,6 +13,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<Data>(context);
+    final auth = Provider.of<AuthProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -55,6 +58,7 @@ class RegisterPage extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.phone,
                     controller: data.phoneController,
                     style: const TextStyle(
                       fontSize: 18,
@@ -104,7 +108,7 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      suffixIcon: data.phoneController.text.length > 9
+                      suffixIcon: data.phoneController.text.replaceAll(RegExp(r'[^0-9]'), '').length > 9
                           ? const Icon(
                               Icons.check_circle,
                               color: Colors.green,
@@ -136,5 +140,9 @@ class RegisterPage extends StatelessWidget {
         ),
       ),
     );
+  }
+  void checkPhoneNumber(Data da,AuthProvider ap){
+    String phoneNumber=da.phoneController.text.replaceAll(RegExp(r'[^0-9]'), '');
+
   }
 }

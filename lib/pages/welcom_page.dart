@@ -1,14 +1,16 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/pages/home_page.dart';
 import 'package:flutter_firebase_phone_auth/pages/register_page.dart';
+import 'package:flutter_firebase_phone_auth/provider/authProvider.dart';
 import 'package:flutter_firebase_phone_auth/widgets/cst_btn.dart';
+import 'package:provider/provider.dart';
 
-class WelcomPage extends StatelessWidget {
-  const WelcomPage({Key? key}) : super(key: key);
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -51,11 +53,17 @@ class WelcomPage extends StatelessWidget {
                   child: CstBtn(
                     txt: "Get started",
                     fun: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterPage()),
-                      );
+                      auth.checkIsSignedIn == true
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterPage()),
+                            );
                     },
                   ),
                 )
