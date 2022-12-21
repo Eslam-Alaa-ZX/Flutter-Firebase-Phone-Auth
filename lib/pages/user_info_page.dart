@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/utilty/showSnackBar.dart';
 import 'package:flutter_firebase_phone_auth/widgets/cst_text_field.dart';
 import 'package:provider/provider.dart';
 
+import '../model/userModel.dart';
 import '../provider/authProvider.dart';
 import '../provider/data.dart';
 import '../widgets/cst_btn.dart';
@@ -33,28 +35,44 @@ class UserInfoPage extends StatelessWidget {
                           ),
                         )
                       : CircleAvatar(
-                    backgroundImage: FileImage(data.img!),
-                    radius: 50,
-                  ),
+                          backgroundImage: FileImage(data.img!),
+                          radius: 50,
+                        ),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                   margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
-                      CstTextField(hint: "Eslam Alaa", icon: Icons.account_circle, type: TextInputType.name, maxLines: 1, controller: data.nameController),
-                      CstTextField(hint: "abc@example.com", icon: Icons.email, type: TextInputType.emailAddress, maxLines: 1, controller: data.emailController),
-                      CstTextField(hint: "Enter your bio here...", icon: Icons.edit, type: TextInputType.text, maxLines: 2, controller: data.bioController),
+                      CstTextField(
+                          hint: "Eslam Alaa",
+                          icon: Icons.account_circle,
+                          type: TextInputType.name,
+                          maxLines: 1,
+                          controller: data.nameController),
+                      CstTextField(
+                          hint: "abc@example.com",
+                          icon: Icons.email,
+                          type: TextInputType.emailAddress,
+                          maxLines: 1,
+                          controller: data.emailController),
+                      CstTextField(
+                          hint: "Enter your bio here...",
+                          icon: Icons.edit,
+                          type: TextInputType.text,
+                          maxLines: 2,
+                          controller: data.bioController),
                       const SizedBox(
                         height: 20,
                       ),
                       SizedBox(
-                        width: double.infinity,
+                        width: MediaQuery.of(context).size.width * 0.80,
                         height: 50,
                         child: CstBtn(
-                          txt: "Login",
-                          fun: (){},
+                          txt: "Continue",
+                          fun: () => storeDataInDB(context, data),
                         ),
                       ),
                     ],
@@ -66,5 +84,20 @@ class UserInfoPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void storeDataInDB(BuildContext context, Data da) async {
+    UserModel(
+        email: da.emailController.text.trim(),
+        name: da.nameController.text.trim(),
+        bio: da.bioController.text.trim(),
+        profileImg: "",
+        createdAt: "",
+        phone: "",
+        userId: "");
+    if (da.img != null) {
+    } else {
+      showSnackBar(context, "Please upload your profile photo.");
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/model/userModel.dart';
 import 'package:flutter_firebase_phone_auth/pages/o_t_p_page.dart';
 import 'package:flutter_firebase_phone_auth/utilty/showSnackBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,4 +91,7 @@ String get getUserId => userId!;
       return false;
     }
   }
+
+
+
 }
