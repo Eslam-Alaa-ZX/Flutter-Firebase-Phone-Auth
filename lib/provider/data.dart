@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/utilty/showSnackBar.dart';
 
 class Data with ChangeNotifier {
   Country country = Country(
@@ -32,6 +33,11 @@ class Data with ChangeNotifier {
     phoneController.selection = TextSelection.fromPosition(
       TextPosition(offset: phoneController.text.length),
     );
+    notifyListeners();
+  }
+
+  void selectImg(BuildContext context) async {
+    img=await pickImg(context);
     notifyListeners();
   }
 }

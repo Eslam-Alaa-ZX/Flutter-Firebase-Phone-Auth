@@ -23,7 +23,7 @@ class UserInfoPage extends StatelessWidget {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () => data.selectImg(context),
                   child: data.img == null
                       ? const CircleAvatar(
                           backgroundColor: Colors.purple,
@@ -68,7 +68,7 @@ class UserInfoPage extends StatelessWidget {
                         height: 20,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.80,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         height: 50,
                         child: CstBtn(
                           txt: "Continue",
