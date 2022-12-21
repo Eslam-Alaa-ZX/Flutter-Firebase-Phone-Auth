@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/utilty/showSnackBar.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
@@ -94,7 +95,14 @@ class OTPPage extends StatelessWidget {
                     height: 50,
                     child: CstBtn(
                       txt: "Verify",
-                      fun: () {},
+                      fun: () {
+                        if(auth.otpCode != null){
+                          verifyOtp(context, auth.otpCode!);
+                        }
+                        else{
+                          showSnackBar(context, "Enter 6-Digit code");
+                        }
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -126,5 +134,9 @@ class OTPPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void verifyOtp(BuildContext context,String otpCode){
+
   }
 }
