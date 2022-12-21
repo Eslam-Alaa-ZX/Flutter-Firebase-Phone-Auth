@@ -12,6 +12,9 @@ class AuthProvider extends ChangeNotifier {
       isSignedIn; // equel to       bool checkIsSignedIn(){return isSignedIn;}
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
+  bool isLoading = false;
+  bool get checkIsLoading => isLoading;
+
   AuthProvider() {
     checkSignIn();
   }
@@ -43,6 +46,28 @@ class AuthProvider extends ChangeNotifier {
         codeAutoRetrievalTimeout: (verificationId) {},
       );
     } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message.toString());
+    }
+  }
+
+  void checkOtpCode({
+    required BuildContext context,
+    required String verificationId,
+    required String otpCode,
+    required Function onIsVerified,
+  }) async {
+    isLoading=true;
+    notifyListeners();
+
+    try{
+      PhoneAuthCredential credential=PhoneAuthProvider.credential(verificationId: verificationId, smsCode: otpCode);
+      User? user= (await firebaseAuth.signInWithCredential(credential)).user;
+      if(user != null){
+        //the logic
+      }
+      isLoading=false;
+      notifyListeners();
+    } on FirebaseAuthException catch(e){
       showSnackBar(context, e.message.toString());
     }
   }
