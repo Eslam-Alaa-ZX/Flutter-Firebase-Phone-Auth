@@ -36,6 +36,7 @@ dependencies:
   cloud_firestore: ^4.2.0
   firebase_storage: ^11.0.8
   shared_preferences: ^2.0.15
+  pinput: ^2.2.19
   flutter:
     sdk: flutter
 

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool isSignedIn = false;
+  String? otpCode;
 
   bool get checkIsSignedIn =>
       isSignedIn; // equel to       bool checkIsSignedIn(){return isSignedIn;}
