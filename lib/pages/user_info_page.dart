@@ -43,7 +43,20 @@ class UserInfoPage extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
-
+                      CstTextField(hint: "Eslam Alaa", icon: Icons.account_circle, type: TextInputType.name, maxLines: 1, controller: data.nameController),
+                      CstTextField(hint: "abc@example.com", icon: Icons.email, type: TextInputType.emailAddress, maxLines: 1, controller: data.emailController),
+                      CstTextField(hint: "Enter your bio here...", icon: Icons.edit, type: TextInputType.text, maxLines: 2, controller: data.bioController),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: CstBtn(
+                          txt: "Login",
+                          fun: (){},
+                        ),
+                      ),
                     ],
                   ),
                 ),
