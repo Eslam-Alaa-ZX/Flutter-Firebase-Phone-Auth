@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_phone_auth/pages/o_t_p_page.dart';
@@ -11,6 +12,7 @@ class AuthProvider extends ChangeNotifier {
   bool get checkIsSignedIn =>
       isSignedIn; // equel to       bool checkIsSignedIn(){return isSignedIn;}
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
 
   bool isLoading = false;
   bool get checkIsLoading => isLoading;
@@ -74,6 +76,18 @@ String get getUserId => userId!;
       notifyListeners();
     } on FirebaseAuthException catch(e){
       showSnackBar(context, e.message.toString());
+    }
+  }
+
+  Future<bool> checkUserInDB() async {
+    DocumentSnapshot snapshot=await firebaseFireStore.collection("users").doc(userId).get();
+    if(snapshot.exists){
+      print("User Exists");
+      return true;
+    }
+    else{
+      print("New User");
+      return false;
     }
   }
 }
