@@ -15,6 +15,9 @@ class AuthProvider extends ChangeNotifier {
   bool isLoading = false;
   bool get checkIsLoading => isLoading;
 
+  String? userId;
+String get getUserId => userId!;
+
   AuthProvider() {
     checkSignIn();
   }
@@ -64,6 +67,8 @@ class AuthProvider extends ChangeNotifier {
       User? user= (await firebaseAuth.signInWithCredential(credential)).user;
       if(user != null){
         //the logic
+        userId=user.uid;
+        onIsVerified();
       }
       isLoading=false;
       notifyListeners();
