@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,11 @@ class Data with ChangeNotifier {
       displayNameNoCountryCode: "EG",
       e164Key: "");
   TextEditingController phoneController = TextEditingController();
+  //new user
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
+  File? img;
 
   void onCountryChange(Country country) {
     this.country = country;

@@ -91,7 +91,7 @@ class OTPPage extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          onSubmitted: (value) {
+                          onCompleted: (value) {
                             auth.otpCode = value;
                           },
                         ),
