@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/pages/user_info_page.dart';
 import 'package:flutter_firebase_phone_auth/utilty/showSnackBar.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
@@ -149,7 +150,13 @@ class OTPPage extends StatelessWidget {
       otpCode: otpCode,
       onIsVerified: () {
         // check the user in database
-        ap.checkUserInDB().then((value) => null);
+        ap.checkUserInDB().then((value) async {
+          if(value){
+
+          }else{
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const UserInfoPage(),), (route) => false);
+          }
+        });
       },
     );
   }
