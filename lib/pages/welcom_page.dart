@@ -52,18 +52,22 @@ class WelcomePage extends StatelessWidget {
                   height: 50,
                   child: CstBtn(
                     txt: "Get started",
-                    fun: () {
-                      auth.checkIsSignedIn == true
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomePage()),
-                            )
-                          : Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const RegisterPage()),
+                    fun: () async {
+                      if (auth.checkIsSignedIn) {
+                        await auth.getDataFromSP().whenComplete(
+                              () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()),
+                              ),
                             );
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterPage()),
+                        );
+                      }
                     },
                   ),
                 )

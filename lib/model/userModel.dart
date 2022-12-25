@@ -1,11 +1,11 @@
 class UserModel {
-  final String email;
-  final String name;
-  final String bio;
-  final String profileImg;
-  final String createdAt;
-  final String phone;
-  final String userId;
+  String email;
+  String name;
+  String bio;
+  String profileImg;
+  String createdAt;
+  String phone;
+  String userId;
 
   UserModel(
       {required this.email,
@@ -28,7 +28,7 @@ class UserModel {
     );
   }
 
-  Map<String, dynamic> tpMap(){
+  Map<String, dynamic> toMap(){
     return{
       "userId":userId,
       "phone":phone,

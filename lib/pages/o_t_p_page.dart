@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_phone_auth/pages/home_page.dart';
 import 'package:flutter_firebase_phone_auth/pages/user_info_page.dart';
 import 'package:flutter_firebase_phone_auth/utilty/showSnackBar.dart';
 import 'package:pinput/pinput.dart';
@@ -18,15 +19,15 @@ class OTPPage extends StatelessWidget {
     final data = Provider.of<Data>(context);
     final auth = Provider.of<AuthProvider>(context);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: auth.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.purple,
-                  ),
-                )
-              : Center(
+      body: auth.isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.purple,
+              ),
+            )
+          : SingleChildScrollView(
+              child: SafeArea(
+                child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 25, horizontal: 25),
@@ -138,8 +139,8 @@ class OTPPage extends StatelessWidget {
                     ),
                   ),
                 ),
-        ),
-      ),
+              ),
+            ),
     );
   }
 
@@ -151,10 +152,26 @@ class OTPPage extends StatelessWidget {
       onIsVerified: () {
         // check the user in database
         ap.checkUserInDB().then((value) async {
-          if(value){
-
-          }else{
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const UserInfoPage(),), (route) => false);
+          if (value) {
+            ap.getDataFromFireStore().then(
+                  (value) => ap.saveUserInfoLocal().then(
+                        (value) => ap.setSignIn().then(
+                              (value) => Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                  (route) => false),
+                            ),
+                      ),
+                );
+          } else {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserInfoPage(),
+                ),
+                (route) => false);
           }
         });
       },
